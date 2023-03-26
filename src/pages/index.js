@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import { RiSendPlaneFill } from 'react-icons/Ri';
 
 export default function Home() {
   return (
@@ -21,6 +22,17 @@ export default function Home() {
               <div>Hello</div>
             </div>
           </div>
+          <form className='w-full'>
+            <div className='relative flex'>
+              <input
+                type='text'
+                className='flex-1 border-2 rounded-lg py-2 px-4 focus:outline-none'
+              />
+              <button className='absolute top-0 right-0 px-3 py-3 hover:text-blue-700'>
+                <RiSendPlaneFill className='text-2xl' />
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </>

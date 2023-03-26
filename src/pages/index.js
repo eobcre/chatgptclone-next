@@ -13,7 +13,7 @@ export default function Home() {
         <div className='max-w-lg w-full'>
           <div
             styles={{ height: '650px' }}
-            className='w-full h-96 bg-gray-100 p-4 overflow-scroll rounded-lg'
+            className='w-full h-96 bg-gray-100 p-4 overflow-scroll rounded-t-lg'
           >
             <span className='block text-center text-2xl font-medium border-b-2 border-blue-600 pb-4 mb-2'>
               Chat GPT Clone
@@ -22,13 +22,14 @@ export default function Home() {
               <div>Hello</div>
             </div>
           </div>
+
           <form className='w-full'>
-            <div className='relative flex'>
+            <div className=' w-full relative flex items-center p-4 bg-gray-100 rounded-b-lg'>
               <input
                 type='text'
                 className='flex-1 border-2 rounded-lg py-2 px-4 focus:outline-none'
               />
-              <button className='absolute top-0 right-0 px-3 py-3 hover:text-blue-700'>
+              <button className='absolute top-4 right-4 px-3 py-3 hover:text-blue-700'>
                 <RiSendPlaneFill className='text-2xl' />
               </button>
             </div>

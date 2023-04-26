@@ -67,8 +67,8 @@ export default function Home() {
             <span className='block text-center text-2xl font-medium border-b-2 border-blue-600 pb-4 mb-2'>
               Chat GPT Clone
             </span>
-            {messages.map((message) => (
-              <div className='flex justify-end mb-2'>
+            {messages.map((message, index) => (
+              <div key={index} className='flex justify-end mb-2'>
                 <div className='bg-indigo-400 text-white p-2 rounded-md'>
                   {message.text}
                 </div>

@@ -11,9 +11,17 @@ export default function Home() {
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const configuration = new Configuration({
+  // const configuration = new Configuration({
+  //   apiKey: process.env.NEXT_PUBLIC_OPENAPI_KEY,
+  // });
+
+  // const openai = new OpenAIApi(configuration);
+
+  let configuration = new Configuration({
     apiKey: process.env.NEXT_PUBLIC_OPENAPI_KEY,
   });
+
+  delete configuration.baseOptions.headers['User-Agent'];
 
   const openai = new OpenAIApi(configuration);
 
@@ -27,6 +35,8 @@ export default function Home() {
       model: 'gpt-3.5-turbo',
       messages: [{ role: 'user', content: 'Hello!' }],
     });
+
+    console.log(response.data.choices[0].message?.content);
 
     setMessages((prevState) => [
       ...prevState,
@@ -57,9 +67,13 @@ export default function Home() {
             <span className='block text-center text-2xl font-medium border-b-2 border-blue-600 pb-4 mb-2'>
               Chat GPT Clone
             </span>
-            <div>
-              <div>Hello</div>
-            </div>
+            {messages.map((message) => (
+              <div className='flex justify-end mb-2'>
+                <div className='bg-indigo-400 text-white p-2 rounded-md'>
+                  {message.text}
+                </div>
+              </div>
+            ))}
           </div>
 
           <form onSubmit={(e) => submitHandler(e)} className='w-full'>

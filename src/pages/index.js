@@ -11,32 +11,24 @@ export default function Home() {
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  // const configuration = new Configuration({
-  //   apiKey: process.env.NEXT_PUBLIC_OPENAPI_KEY,
-  // });
-
-  // const openai = new OpenAIApi(configuration);
-
   let configuration = new Configuration({
     apiKey: process.env.NEXT_PUBLIC_OPENAPI_KEY,
   });
 
+  // Prevent "User-Agent" error
   delete configuration.baseOptions.headers['User-Agent'];
 
   const openai = new OpenAIApi(configuration);
 
   const submitHandler = async (e) => {
-    // prevents reload
     e.preventDefault();
     setIsLoading(true);
 
     // API
     const response = await openai.createChatCompletion({
       model: 'gpt-3.5-turbo',
-      messages: [{ role: 'user', content: 'Hello!' }],
+      messages: [{ role: 'user', content: message }],
     });
-
-    console.log(response.data.choices[0].message?.content);
 
     setMessages((prevState) => [
       ...prevState,
@@ -44,9 +36,8 @@ export default function Home() {
       { sender: 'bot', text: response.data.choices[0].message?.content },
     ]);
 
-    console.log(messages);
-
-    // console.log(response.data.choices[0].message?.content);
+    // Reset
+    setMessage('');
 
     setIsLoading(false);
   };
@@ -68,8 +59,19 @@ export default function Home() {
               Chat GPT Clone
             </span>
             {messages.map((message, index) => (
-              <div key={index} className='flex justify-end mb-2'>
-                <div className='bg-indigo-400 text-white p-2 rounded-md'>
+              <div
+                key={index}
+                className={`flex ${
+                  message.sender === 'user' ? 'justify-end' : 'justify-start'
+                }  mb-2`}
+              >
+                <div
+                  className={`rounded-md p-2 ${
+                    message.sender === 'user'
+                      ? 'bg-indigo-400 text-white'
+                      : 'bg-gray-200'
+                  }`}
+                >
                   {message.text}
                 </div>
               </div>
